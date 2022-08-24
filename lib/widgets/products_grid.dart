@@ -12,8 +12,16 @@ class ProductsGrid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(10),
       itemCount: products.length,
-      itemBuilder: (context, i) =>
-          ProductItem(products[i].id, products[i].title, products[i].imageUrl),
+      itemBuilder: (context, i) => ChangeNotifierProvider.value(
+        // create: (context) => products[i],
+        value: products[i],
+        child: ProductItem(
+            // products[i].id, products[i].title, products[i].imageUrl
+            ),
+      ),
+      // dito naglagay ng provider kasi sa loob ng product item we can listen to changes
+      // in the product (at this point we are looking at isFavorite)
+      // we are setting provider one for each instance of product
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
